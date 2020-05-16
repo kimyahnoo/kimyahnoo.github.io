@@ -1,46 +1,86 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
-<script src="https://unpkg.com/p5.createloop@latest/dist/p5.createloop.js"></script> 
+<html>
+<head>
+</head>
+<body>
+<script type='text/javascript'>
+var img_L = 0;
+var img_T = 0;
+var targetObj;
 
-<style>
-body{
-  margin: 0;
-  overflow:hidden;
+function getLeft(o){
+  return parseInt(o.style.left.replace('px', ''));
+}
+function getTop(o){
+  return parseInt(o.style.top.replace('px', ''));
+}
+
+// 이미지 움직이기
+function moveDrag(e){
+  var e_obj = window.event? window.event : e;
+  var dmvx = parseInt(e_obj.clientX + img_L);
+  var dmvy = parseInt(e_obj.clientY + img_T);
+  targetObj.style.left = dmvx +"px";
+  targetObj.style.top = dmvy +"px";
+  return false;
+}
+
+// 드래그 시작
+function startDrag(e, obj){
+  targetObj = obj;
+  var e_obj = window.event? window.event : e;
+  img_L = getLeft(obj) - e_obj.clientX;
+  img_T = getTop(obj) - e_obj.clientY;
+
+  document.onmousemove = moveDrag;
+  document.onmouseup = stopDrag;
+  if(e_obj.preventDefault)e_obj.preventDefault();
+}
+
+// 드래그 멈추기
+function stopDrag(){
+  document.onmousemove = null;
+  document.onmouseup = null;
+}
+</script>
+<style type="text/css">
+@font-face {
+  font-family: "GmarketSansBold";
+  src: url("./GmarketSansOTF/GmarketSansBold.otf");
+}
+@font-face {
+  font-family: "GmarketSansLight";
+  src: url("./GmarketSansOTF/GmarketSansLight.otf");
+}
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("./GmarketSansOTF/GmarketSansMedium.otf");
 }
 </style>
 
+</body>
+<div style="width:1200px; height:800px; padding-top:50px; padding-left:50px; border: solid;">
+  <div style="font-family:GmarketSansBold; font-size:30px;">정반합;</div>
+  <div style="font-family:GmarketSansBold; font-size:30px;">정이 쌓이는</div>
+  <div style="font-family:GmarketSansBold; font-size:30px; margin-bottom:30px;">반지하 합정</div>
+  <div style="font-family:GmarketSansMedium; font-size:18px; height:27px;">2020. 05. 17 - </div>
+  <div style="font-family:GmarketSansMedium; font-size:18px; height:27px; margin-bottom:30px;">2020. 06.30</div>
+  <div style="font-family:GmarketSansMedium; font-size:18px; height:27px;">합정역 7번 출구</div>
+  <div style="font-family:GmarketSansMedium; font-size:18px; height:27px; margin-bottom:460px;">주택가 반지하 상가</div>
+  <div style="font-family:GmarketSansMedium; font-size:13px;">*모듈을 움직여서 배치해보세요.</div>
 
-<script>
-const seedX = Math.random()
-const seedY = Math.random()
-const radX = 0.7
-const radY = 0.6
-let ampX
-let ampY
 
-const gif = {
-    startLoop: 1,
-    endLoop: 2,
-    fileName: "noiseLoop2x.gif"
-}
 
-function setup() {
-    createCanvas(300, 300)
-    colorMode(HSB, 1, 1, 1)
-    frameRate(30)
-    background(255)
-    fill(127)
-    noStroke()
-    createLoop(3, { gif })
-    ampX = width / 2.3
-    ampY = height / 2.3
-}
 
-function draw() {
-    // background(255)
-    fill(animLoop.progress, 0.5, 1)
-    translate(width / 2, height / 2)
-    const x = animLoop.noise({ radius: radX, seed: seedX }) * ampX
-    const y = animLoop.noise({ radius: radY, seed: seedY }) * ampY
-    ellipse(x, y, 50, 50)
-}
-</script>
+  <img src="./정반합_로고.png" style="width: 75px; height:39px; z-index:-1; position:absolute; left:1140px; top:60px;" border="0">
+  <img src="./300/1-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/2-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/3-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/4-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/5-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/6-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/7-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/8-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/9-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./오른쪽에 배치-8.png" style="position: absolute; width: 663px; height:650px; z-index:-1; top: 200px; left: 590px;" border="0">
+</div>
+</html>
