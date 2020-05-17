@@ -7,6 +7,50 @@ var img_L = 0;
 var img_T = 0;
 var targetObj;
 
+
+
+
+(function() {
+function touchHandler(event)
+{
+    var touches = event.changedTouches,
+        first = touches[0],
+        type = "";
+
+    switch(event.type)
+    {
+        case "touchstart": type = "mousedown"; break;
+        case "touchmove":  type="mousemove"; break;        
+        case "touchend":   type="mouseup"; break;
+        default: return;
+    }
+
+    // initMouseEvent(type, canBubble, cancelable, view, clickCount,
+    //                screenX, screenY, clientX, clientY, ctrlKey,
+    //                altKey, shiftKey, metaKey, button, relatedTarget);
+
+    var simulatedEvent = document.createEvent("MouseEvent");
+    simulatedEvent.initMouseEvent(type, true, true, window, 1,
+                              first.screenX, first.screenY,
+                              first.clientX, first.clientY, false,
+                              false, false, false, 0/*left*/, null);
+
+    first.target.dispatchEvent(simulatedEvent);
+    event.preventDefault();
+}
+
+
+function init()
+{
+    document.addEventListener("touchstart", touchHandler, true);
+    document.addEventListener("touchmove", touchHandler, true);
+    document.addEventListener("touchend", touchHandler, true);
+    document.addEventListener("touchcancel", touchHandler, true);    
+}
+init();
+})();
+
+
 function getLeft(o){
   return parseInt(o.style.left.replace('px', ''));
 }
@@ -41,32 +85,6 @@ function stopDrag(){
   document.onmousemove = null;
   document.onmouseup = null;
 }
-  
-// 터치로 변환
-  function touchHandler(event) {
-    var touch = event.changedTouches[0];
-
-    var simulatedEvent = document.createEvent("MouseEvent");
-        simulatedEvent.initMouseEvent({
-        touchstart: "mousedown",
-        touchmove: "mousemove",
-        touchend: "mouseup"
-    }[event.type], true, true, window, 1,
-        touch.screenX, touch.screenY,
-        touch.clientX, touch.clientY, false,
-        false, false, false, 0, null);
-
-    touch.target.dispatchEvent(simulatedEvent);
-    event.preventDefault();
-}
-
-function init() {
-    document.addEventListener("touchstart", touchHandler, true);
-    document.addEventListener("touchmove", touchHandler, true);
-    document.addEventListener("touchend", touchHandler, true);
-    document.addEventListener("touchcancel", touchHandler, true);
-}
-  
 </script>
 <style type="text/css">
 @font-face {
@@ -85,9 +103,9 @@ function init() {
 
 </body>
 <div style="width:1200px; height:800px; padding-top:50px; padding-left:50px; border: solid;">
-  <div style="font-family:GmarketSansBold; font-size:30px; height:36px;">정반합;</div>
-  <div style="font-family:GmarketSansBold; font-size:30px; height:36px;">정이 쌓이는</div>
-  <div style="font-family:GmarketSansBold; font-size:30px; height:36px; margin-bottom:30px;">반지하 합정</div>
+  <div style="font-family:GmarketSansBold; font-size:30px;">정반합;</div>
+  <div style="font-family:GmarketSansBold; font-size:30px;">정이 쌓이는</div>
+  <div style="font-family:GmarketSansBold; font-size:30px; margin-bottom:30px;">반지하 합정</div>
   <div style="font-family:GmarketSansMedium; font-size:18px; height:27px;">2020. 05. 17 - </div>
   <div style="font-family:GmarketSansMedium; font-size:18px; height:27px; margin-bottom:30px;">2020. 06.30</div>
   <div style="font-family:GmarketSansMedium; font-size:18px; height:27px;">합정역 7번 출구</div>
@@ -97,16 +115,16 @@ function init() {
 
 
 
-  <img src="./자산%204-8.png" style="width: 84px; height:50px; z-index:-1; position:absolute; left:1140px; top:60px;" border="0">
-  <img src="./300/1-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onpointerdown="startDrag(event, this)" border="0" draggable="true">
-  <img src="./300/2-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onpointerdown="startDrag(event, this)" border="0" draggable="true">
-  <img src="./300/3-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onpointerdown="startDrag(event, this)" border="0" draggable="true">
-  <img src="./300/4-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onpointerdown="startDrag(event, this)" border="0" draggable="true">
-  <img src="./300/5-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onpointerdown="startDrag(event, this)" border="0" draggable="true">
-  <img src="./300/6-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onpointerdown="startDrag(event, this)" border="0" draggable="true">
-  <img src="./300/7-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onpointerdown="startDrag(event, this)" border="0" draggable="true">
-  <img src="./300/8-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onpointerdown="startDrag(event, this)" border="0" draggable="true">
-  <img src="./300/9-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onpointerdown="startDrag(event, this)" border="0" draggable="true">
+  <img src="./자산%204-8.png" style="width: 75px; height:39px; z-index:-1; position:absolute; left:1140px; top:60px;" border="0">
+  <img src="./300/1-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/2-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/3-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/4-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/5-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/6-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/7-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/8-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
+  <img src="./300/9-1.png" style="width: 150px; height:150px; position:absolute; left:70px; top:630px; cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" border="0">
   <img src="./오른쪽에 배치-8.png" style="position: absolute; width: 663px; height:650px; z-index:-1; top: 200px; left: 590px;" border="0">
 </div>
 </html>
